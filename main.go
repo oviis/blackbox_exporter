@@ -42,8 +42,9 @@ import (
 	"gopkg.in/alecthomas/kingpin.v2"
 	"gopkg.in/yaml.v3"
 
-	"github.com/DeviaVir/blackbox_exporter/config"
-	"github.com/DeviaVir/blackbox_exporter/prober"
+
+	"github.com/prometheus/blackbox_exporter/config"
+	"github.com/prometheus/blackbox_exporter/prober"
 	dto "github.com/prometheus/client_model/go"
 )
 
@@ -152,6 +153,7 @@ func probeHandler(w http.ResponseWriter, r *http.Request, c *config.Config, logg
 							value = strconv.FormatFloat(metric.Gauge.GetValue(), 'E', -1, 64)
 						case dto.MetricType_UNTYPED:
 							value = strconv.FormatFloat(metric.Untyped.GetValue(), 'E', -1, 64)
+
 						default:
 							value = fmt.Sprintf("unexpected type in metric %s %s", mf.GetName(), mf.GetType())
 						}
